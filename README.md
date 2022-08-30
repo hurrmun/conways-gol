@@ -19,3 +19,9 @@ Considerations:
 - implementation for rules
 - mechanisms to start and stop and reset
 - grid size control (min/max grid size)
+
+Implementation:
+
+- Ticker that runs at adjustable speed (setInterval)
+- functions to check for all the rules for each cell
+- board state (global?)
