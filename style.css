@@ -9,3 +9,7 @@
     background-color: aquamarine;
     border: 1px solid black;
 }
+
+.alive {
+    background-color: blueviolet;
+}
