@@ -5,6 +5,21 @@ let size = 50;
 
 const displayBoard = document.querySelector('.board');
 
+const renderBoard = () => {
+  for (let i = 0; i < size; i++) {
+    for (let j = 0; j < size; j++) {
+      const cellClass =
+        document.querySelectorAll('.row')[i].children[j].classList;
+      console.log('cell', document.querySelectorAll('.row')[i].children[j]);
+      if (board[i][j] === 0 && cellClass.contains('alive')) {
+        cellClass.remove('alive');
+      } else if (board[i][j] === 1) {
+        cellClass.add('alive');
+      }
+    }
+  }
+};
+
 const clickCell = (cell, row, column) => {
   console.log(cell);
   cell.classList.toggle('alive');
@@ -14,6 +29,8 @@ const clickCell = (cell, row, column) => {
   } else {
     board[row][column]--;
   }
+  //* don't use renderBoard here as it reloads the entire board
+  //   renderBoard();
   console.log(board);
 };
 
