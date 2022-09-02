@@ -21,7 +21,7 @@ const renderBoard = () => {
 };
 
 const clickCell = (cell, row, column) => {
-  console.log(cell);
+  //   console.log(cell);
   cell.classList.toggle('alive');
   let boardCell = board[row][column];
   if (boardCell === 0) {
