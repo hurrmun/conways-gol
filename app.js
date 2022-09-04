@@ -53,6 +53,30 @@ const createBoard = () => {
   }
 };
 
+//* Check surrounding cells
+// 1. Any live cell with fewer than two live neighbours dies (referred to as underpopulation).
+// 2. Any live cell with more than three live neighbours dies (referred to as overpopulation).
+// 3. Any live cell with two or three live neighbours lives, unchanged, to the next generation.
+// 4. Any dead cell with exactly three live neighbours comes to life.
+
+const checkCell = (isCellAlive, surroundingCells) => {
+  let isAlive;
+  if (isCellAlive === true) {
+    if (surroundingCells < 2 || surroundingCells > 3) {
+      isAlive = false;
+    } else {
+      isAlive = true;
+    }
+  } else {
+    if (surroundingCells === 3) {
+      isAlive = true;
+    } else {
+      isAlive = false;
+    }
+  }
+  return isAlive;
+};
+
 const startGame = () => {
   createBoard();
 };
