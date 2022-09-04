@@ -1,16 +1,16 @@
 // Represent the board as an array of arrays
-const board = [];
+let board = [];
 
 let size = 50;
 
 const displayBoard = document.querySelector('.board');
 
-const renderBoard = () => {
+const renderBoard = (board) => {
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
       const cellClass =
         document.querySelectorAll('.row')[i].children[j].classList;
-      console.log('cell', document.querySelectorAll('.row')[i].children[j]);
+      //   console.log('cell', document.querySelectorAll('.row')[i].children[j]);
       if (board[i][j] === 0 && cellClass.contains('alive')) {
         cellClass.remove('alive');
       } else if (board[i][j] === 1) {
@@ -31,7 +31,7 @@ const clickCell = (cell, row, column) => {
   }
   //* don't use renderBoard here as it reloads the entire board
   //   renderBoard();
-  console.log(board);
+  //   console.log(board);
 };
 
 const createBoard = () => {
@@ -77,8 +77,57 @@ const checkCell = (isCellAlive, surroundingCells) => {
   return isAlive;
 };
 
+const checkBoard = (gameboard) => {
+  const newBoard = [];
+  gameboard.forEach((row, rowIndex) => {
+    newBoard.push([]);
+    row.forEach((cell, cellIndex) => {
+      let livingNeighbours = 0;
+      let isCellAlive = !!cell;
+      if (!!gameboard?.[rowIndex - 1]?.[cellIndex - 1]) {
+        livingNeighbours++;
+      }
+      if (!!gameboard?.[rowIndex - 1]?.[cellIndex]) {
+        livingNeighbours++;
+      }
+      if (!!gameboard?.[rowIndex - 1]?.[cellIndex + 1]) {
+        livingNeighbours++;
+      }
+      if (!!gameboard?.[rowIndex]?.[cellIndex - 1]) {
+        livingNeighbours++;
+      }
+      if (!!gameboard?.[rowIndex]?.[cellIndex + 1]) {
+        livingNeighbours++;
+      }
+      if (!!gameboard?.[rowIndex + 1]?.[cellIndex - 1]) {
+        livingNeighbours++;
+      }
+      if (!!gameboard?.[rowIndex + 1]?.[cellIndex]) {
+        livingNeighbours++;
+      }
+      if (!!gameboard?.[rowIndex + 1]?.[cellIndex + 1]) {
+        livingNeighbours++;
+      }
+      if (checkCell(isCellAlive, livingNeighbours)) {
+        newBoard[rowIndex][cellIndex] = 1;
+      } else {
+        newBoard[rowIndex][cellIndex] = 0;
+      }
+      console.log(rowIndex, cellIndex, livingNeighbours);
+    });
+  });
+  renderBoard(newBoard);
+  board = newBoard;
+};
+
 const startGame = () => {
   createBoard();
+  const button = document.createElement('button');
+  button.textContent = 'start';
+  button.addEventListener('click', () =>
+    setInterval(() => checkBoard(board), 1000)
+  );
+  document.querySelector('.game').append(button);
 };
 
 startGame();
