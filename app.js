@@ -122,12 +122,19 @@ const checkBoard = (gameboard) => {
 
 const startGame = () => {
   createBoard();
-  const button = document.createElement('button');
-  button.textContent = 'start';
-  button.addEventListener('click', () =>
-    setInterval(() => checkBoard(board), 1000)
+  let intervalId;
+  const startButton = document.createElement('button');
+  startButton.textContent = 'start';
+  startButton.addEventListener(
+    'click',
+    () => (intervalId = setInterval(() => checkBoard(board), 1000))
   );
-  document.querySelector('.game').append(button);
+  document.querySelector('.game').append(startButton);
+
+  const stopButton = document.createElement('button');
+  stopButton.textContent = 'stop';
+  stopButton.addEventListener('click', () => clearInterval(intervalId));
+  document.querySelector('.game').append(stopButton);
 };
 
 startGame();
