@@ -124,17 +124,20 @@ const startGame = () => {
   createBoard();
   let intervalId;
   const startButton = document.createElement('button');
+
+  //* Start Button
   startButton.textContent = 'start';
   startButton.addEventListener(
     'click',
-    () => (intervalId = setInterval(() => checkBoard(board), 1000))
+    () => (intervalId = setInterval(() => checkBoard(board), 500))
   );
-  document.querySelector('.game').append(startButton);
+  document.querySelector('.controls').append(startButton);
 
+  //* Stop Button
   const stopButton = document.createElement('button');
   stopButton.textContent = 'stop';
   stopButton.addEventListener('click', () => clearInterval(intervalId));
-  document.querySelector('.game').append(stopButton);
+  document.querySelector('.controls').append(stopButton);
 };
 
 startGame();
