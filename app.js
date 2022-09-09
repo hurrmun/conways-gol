@@ -11,7 +11,7 @@ const renderBoard = (board) => {
       const cellClass =
         document.querySelectorAll('.row')[i].children[j].classList;
       //   console.log('cell', document.querySelectorAll('.row')[i].children[j]);
-      if (board[i][j] === 0 && cellClass.contains('alive')) {
+      if (board[i][j] === 0 && cellClass?.contains('alive')) {
         cellClass.remove('alive');
       } else if (board[i][j] === 1) {
         cellClass.add('alive');
@@ -113,31 +113,58 @@ const checkBoard = (gameboard) => {
       } else {
         newBoard[rowIndex][cellIndex] = 0;
       }
-      console.log(rowIndex, cellIndex, livingNeighbours);
+      //   console.log(rowIndex, cellIndex, livingNeighbours);
     });
   });
   renderBoard(newBoard);
   board = newBoard;
 };
 
+const resetBoard = () => {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      board[i][j] = 0;
+    }
+  }
+  renderBoard(board);
+};
+
 const startGame = () => {
   createBoard();
   let intervalId;
-  const startButton = document.createElement('button');
+  let startingBoard;
 
   //* Start Button
+  const startButton = document.createElement('button');
   startButton.textContent = 'start';
-  startButton.addEventListener(
-    'click',
-    () => (intervalId = setInterval(() => checkBoard(board), 500))
-  );
+  startButton.addEventListener('click', () => {
+    startingBoard = board;
+    // console.log(startingBoard);
+    intervalId = setInterval(() => checkBoard(board), 500);
+  });
   document.querySelector('.controls').append(startButton);
+  startingBoard = board;
 
   //* Stop Button
   const stopButton = document.createElement('button');
   stopButton.textContent = 'stop';
   stopButton.addEventListener('click', () => clearInterval(intervalId));
   document.querySelector('.controls').append(stopButton);
+
+  //* Reset Button
+  const resetButton = document.createElement('button');
+  resetButton.textContent = 'reset';
+  resetButton.addEventListener('click', () => {
+    board = startingBoard;
+    renderBoard(board);
+  });
+  document.querySelector('.controls').append(resetButton);
+
+  //* Clear Button
+  const clearButton = document.createElement('button');
+  clearButton.textContent = 'clear';
+  clearButton.addEventListener('click', () => resetBoard());
+  document.querySelector('.controls').append(clearButton);
 };
 
 startGame();
