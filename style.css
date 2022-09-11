@@ -1,3 +1,7 @@
+body {
+    font-family: Arial, Helvetica, sans-serif\;
+}
+
 .row {
     display: flex;
 }
@@ -6,12 +10,26 @@
     display: inline-block;
     height: 20px;
     width: 20px;
-    background-color: aquamarine;
+    background-color: lightgray;
     border: 1px solid black;
 }
 
+@media screen and (max-width: 1148px) {
+    .cell {
+        height: 15px;
+        width: 15px;
+    }
+}
+
+@media screen and (max-width: 876px) {
+    .cell {
+        height: 8px;
+        width: 8px;
+    }
+}
+
 .alive {
-    background-color: blueviolet;
+    background-color: rgb(81, 81, 81);
 }
 
 .game {
@@ -25,5 +43,10 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin: 10px 0;
+    margin: 15px 0;
+}
+
+button {
+    padding: 10px 30px;
+    font-size: 18px;
 }
